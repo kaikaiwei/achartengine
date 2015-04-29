@@ -156,6 +156,7 @@ public abstract class XYChart extends AbstractChart {
       transform(canvas, angle, false);
     }
 
+    //缩放
     int maxScaleNumber = -Integer.MAX_VALUE;
     for (int i = 0; i < sLength; i++) {
       maxScaleNumber = Math.max(maxScaleNumber, mDataset.getSeriesAt(i).getScaleNumber());
@@ -178,7 +179,7 @@ public abstract class XYChart extends AbstractChart {
       maxX[i] = mRenderer.getXAxisMax(i);
       minY[i] = mRenderer.getYAxisMin(i);
       maxY[i] = mRenderer.getYAxisMax(i);
-      isMinXSet[i] = mRenderer.isMinXSet(i);
+      isMinXSet[i] = mRenderer.isMinXSet(i);//获取minx 是否被设置
       isMaxXSet[i] = mRenderer.isMaxXSet(i);
       isMinYSet[i] = mRenderer.isMinYSet(i);
       isMaxYSet[i] = mRenderer.isMaxYSet(i);
@@ -325,6 +326,7 @@ public abstract class XYChart extends AbstractChart {
       }
     }
     // draw stuff over the margins such as data doesn't render on these areas
+    //绘制背景以及margins
     drawBackground(mRenderer, canvas, x, bottom, width, height - bottom, paint, true,
         mRenderer.getMarginsColor());
     drawBackground(mRenderer, canvas, x, y, width, margins[0], paint, true,
@@ -341,6 +343,7 @@ public abstract class XYChart extends AbstractChart {
           mRenderer.getMarginsColor());
     }
 
+    //绘制xy轴上的标签，绘制grid
     boolean showLabels = mRenderer.isShowLabels() && hasValues;
     boolean showGridX = mRenderer.isShowGridX();
     boolean showTickMarks = mRenderer.isShowTickMarks();
@@ -359,6 +362,7 @@ public abstract class XYChart extends AbstractChart {
         // xLabelsLeft += mRenderer.getLabelsTextSize() / 4;
         // }
       }
+      //绘制xy轴上信息
       drawXLabels(xLabels, mRenderer.getXTextLabelLocations(), canvas, paint, xLabelsLeft, top,
           bottom, xPixelsPerUnit[0], minX[0], maxX[0]);
       drawYLabels(allYLabels, canvas, paint, maxScaleNumber, left, right, bottom, yPixelsPerUnit,
@@ -381,6 +385,7 @@ public abstract class XYChart extends AbstractChart {
                   if (showTickMarks) {
                     canvas.drawLine(left + getLabelLinePos(axisAlign), yLabel, left, yLabel, paint);
                   }
+                  //绘制文本信息
                   drawText(canvas, label, left - mRenderer.getYLabelsPadding(),
                       yLabel - mRenderer.getYLabelsVerticalPadding(), paint,
                       mRenderer.getYLabelsAngle());
@@ -481,7 +486,7 @@ public abstract class XYChart extends AbstractChart {
     return MathHelper.getLabels(min, max, count);
   }
 
-  protected Map<Integer, List<Double>> getYLabels(double[] minY, double[] maxY, int maxScaleNumber) {
+  protected Map<Integer, List<Double>> getYLabels(double[]   minY, double[] maxY, int maxScaleNumber) {
     Map<Integer, List<Double>> allYLabels = new HashMap<Integer, List<Double>>();
     for (int i = 0; i < maxScaleNumber; i++) {
       allYLabels.put(i,

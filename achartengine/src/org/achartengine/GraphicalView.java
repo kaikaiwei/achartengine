@@ -167,6 +167,7 @@ public class GraphicalView extends View {
   @Override
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
+    //得到边界
     canvas.getClipBounds(mRect);
     int top = mRect.top;
     int left = mRect.left;
@@ -178,9 +179,10 @@ public class GraphicalView extends View {
       width = getMeasuredWidth();
       height = getMeasuredHeight();
     }
+    //调用chart的draw方法
     mChart.draw(canvas, left, top, width, height, mPaint);
     if (mRenderer != null && mRenderer.isZoomEnabled() && mRenderer.isZoomButtonsVisible()) {
-      mPaint.setColor(ZOOM_BUTTONS_COLOR);
+      mPaint.setColor(ZOOM_BUTTONS_COLOR);//设置背景色
       zoomSize = Math.max(zoomSize, Math.min(width, height) / 7);
       mZoomR.set(left + width - zoomSize * 3, top + height - zoomSize * 0.775f, left + width, top
           + height);
