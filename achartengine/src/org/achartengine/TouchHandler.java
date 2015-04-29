@@ -94,12 +94,12 @@ public class TouchHandler implements ITouchHandler {
 
           float tan1 = Math.abs(newY - oldY) / Math.abs(newX - oldX);
           float tan2 = Math.abs(newY2 - oldY2) / Math.abs(newX2 - oldX2);
-          if (tan1 <= 0.25 && tan2 <= 0.25) {
+          if (tan1 <= 0.25 || tan2 <= 0.25) {
             // horizontal pinch zoom, |deltaY| / |deltaX| is [0 ~ 0.25], 0.25 is
             // the approximate value of tan(PI / 12)
             zoomRate = newDeltaX / oldDeltaX;
             applyZoom(zoomRate, Zoom.ZOOM_AXIS_X);
-          } else if (tan1 >= 3.73 && tan2 >= 3.73) {
+          } else if (tan1 >= 3.73 || tan2 >= 3.73) {
             // pinch zoom vertically, |deltaY| / |deltaX| is [3.73 ~ infinity],
             // 3.732 is the approximate value of tan(PI / 2 - PI / 12)
             zoomRate = newDeltaY / oldDeltaY;
