@@ -23,7 +23,6 @@ import org.achartengine.tools.Pan;
 import org.achartengine.tools.PanListener;
 import org.achartengine.tools.Zoom;
 import org.achartengine.tools.ZoomListener;
-
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
@@ -77,7 +76,7 @@ public class TouchHandler implements ITouchHandler {
    * 
    * @param event the touch event
    */
-  public boolean handleTouch(MotionEvent event) {
+public boolean handleTouch(MotionEvent event) {
     int action = event.getAction();
     if (mRenderer != null && action == MotionEvent.ACTION_MOVE) {
       if (oldX >= 0 || oldY >= 0) {
